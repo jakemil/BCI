@@ -1,0 +1,1 @@
+This repo will serve to store all software needed for FFT and Nueromorphic computing to analyze SSVEP
