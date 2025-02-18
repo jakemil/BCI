@@ -1,9 +1,12 @@
+import os
+os.environ["QT_QPA_PLATFORM"] = "xcb"
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from scipy.signal import butter, lfilter
 from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
 import threading
 import numpy as np
+from PyQt5 import QtWidgets
 import time
 import sys
 
@@ -26,8 +29,8 @@ class EEGPlotter:
         self.num_channels = len(self.channel_indices)
 
         # Set up GUI Layout
-        self.app = QtGui.QApplication([])
-        self.win = pg.GraphicsWindow(title='BrainFlow EEG GUI')
+        self.app = QtWidgets.QApplication([])
+        self.win = pg.GraphicsLayoutWidget(title='BrainFlow EEG GUI')
         self.ts_plots = [self.win.addPlot(row=i, col=0, colspan=2, title=f'Channel {i+1}', labels={'left': 'uV'}) for i in range(self.num_channels)]
         self.fft_plot = self.win.addPlot(row=1, col=2, rowspan=4, title='FFT Plot', labels={'left': 'uV', 'bottom': 'Hz'})
         self.fft_plot.setLimits(xMin=1, xMax=125, yMin=0, yMax=1e7)
@@ -79,7 +82,7 @@ class EEGPlotter:
             self.waves_plot.addItem(bg1)
 
     def run(self):
-        QtGui.QApplication.instance().exec_()
+        QtWidgets.QApplication.instance().exec_()
         self.board.stop_stream()
         self.board.release_session()
 
