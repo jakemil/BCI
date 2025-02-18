@@ -1,12 +1,13 @@
-import time
-import numpy as np
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from scipy.signal import butter, lfilter
+from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
-from PyQt5 import QtWidgets, QtCore
+import threading
+import time
+import numpy as np
 
 class EEGPlotter:
-    def __init__(self, port='COM6', sampling_rate=250, window_size=5):
+    def __init__(self, port='/dev/ttyUSB0', sampling_rate=250, window_size=5):
         self.sampling_rate = sampling_rate
         self.window_size = window_size  # seconds
         self.num_samples = self.sampling_rate * self.window_size
