@@ -6,7 +6,6 @@ from pyOpenBCI import OpenBCICyton
 import threading
 import time
 import numpy as np
-from pyOpenBCI import OpenBCICyton
 
 def print_raw(sample):
     print(sample.channels_data)
